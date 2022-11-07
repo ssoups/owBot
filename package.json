@@ -1,7 +1,7 @@
 {
-    "name": "team-splitter",
-    "version": "1.1.0",
-    "description": "my cool util which i use",
+    "name": "owbot",
+    "version": "1.0.0",
+    "description": "Very cool discord overwatch util!",
     "main": "index.js",
     "type": "module",
     "scripts": {
