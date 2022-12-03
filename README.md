@@ -2,6 +2,8 @@
 
 A very cool Discord bot for Overwatch!
 
+(public version of my private bot)
+
 ## Set Up & Requirements
 
 #### Requirements
