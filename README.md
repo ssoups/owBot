@@ -14,4 +14,5 @@ A very cool Discord bot for Overwatch!
 - Run "npm install" inside terminal
 - Enter bot token inside src/config.json
 
-### NOTE: I will most likely transition this to a stats bot once an API is available.
+### Note
+i will probably not work on this for a long while
