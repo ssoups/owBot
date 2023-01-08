@@ -16,3 +16,5 @@ A very cool Discord bot for Overwatch!
 
 ### Note
 i will probably not work on this for a long while
+
+(correct branch this time)

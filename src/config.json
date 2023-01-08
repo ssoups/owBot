@@ -1,4 +1,5 @@
 {
-    "token": "YOUR-TOKEN-HERE",
-    "prefix": "~"
+    "token": "YOUR-TOKEN",
+    "prefix": "~",
+    "clientId": "BOT-ID"
 }

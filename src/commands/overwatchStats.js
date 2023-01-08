@@ -52,7 +52,7 @@ module.exports = {
                         )   
                         .setTimestamp();
 
-                    interaction.reply({ embeds: [playerStats] });
+                    return interaction.reply({ embeds: [playerStats] });
                     
 
                     function privateAccount() {
@@ -61,7 +61,8 @@ module.exports = {
                             .setTitle(`Account is private!`)
                             .setDescription('Make sure the account you are searching up is set to __public__.')
                             .addFields({ name: "HOW TO SET ACCOUNT TO PUBLIC", value: "1. Once you’re logged onto Overwatch, go to the game menu and select **Options** \n2. Choose the **Social tab**\n3. Find the **Career Profile Visibility** setting\n4. Clicking the right or left arrows to select **Public**." })
-                        interaction.reply({ embeds: [private] });
+
+                            interaction.reply({ embeds: [private] });
                     }
 
                     function playerNotFound(){

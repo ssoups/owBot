@@ -1,9 +1,7 @@
-import { Client, GatewayIntentBits, Partials } from 'discord.js'
-import config from './config.json' assert {type: 'json'}
-import teamSplit from './commands/teamSplit.js';
-import teamCaptain from './commands/teamCaptain.js';
-import randomGameode from './commands/randomMap.js';
-import commands from './commands/commands.js';
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
+const { token } = require('./config.json');
 
 const client = new Client({
     intents: [
@@ -16,24 +14,35 @@ const client = new Client({
     ],
     partials: [Partials.Channel],
  });
- 
- client.once('ready', () => {
-    console.log("Ready!");
- }); 
 
-client.on('messageCreate', message => {
-   console.log(message.content)
-   if(message.content.includes(`<@798318913024163851>`)) message.channel.send(`My prefix is \`${config.prefix}\``)
-   if(message.author.bot || message.content.includes(`${config.prefix}`) == false) return;
+client.commands = new Collection();
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-   var req = message.content.toLowerCase().split(" ")[1];
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	client.commands.set(command.data.name, command);
+}
 
-    if(req === 'ts' || req === "teamsplit") teamSplit(message, message.content.toLowerCase().split(" ")[2]);
-    else if(req === "tc" || req === "teamcaptain") teamCaptain(message);
-    else if(req === "commands") commands(message);
-    else if(req === "rm" || req === "randommap"){
-      randomGameode(message)
-    }
-})
+client.once(Events.ClientReady, () => {
+	console.log('Ready!');
+});
 
-client.login(config.token2);
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	const command = client.commands.get(interaction.commandName);
+
+	if (!command) return;
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
+});
+
+
+client.login(token);
